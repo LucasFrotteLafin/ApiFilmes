@@ -1,10 +1,10 @@
 import { createStore } from 'vuex'
-import type { Movie } from '../types/Movie'
+
 interface State {
   token: string
-  darkMode: boolean
   favorites: number[]
 }
+
 function parseRole(token: string): string {
   try {
     const payload = JSON.parse(atob(token.split('.')[1]))
@@ -13,16 +13,15 @@ function parseRole(token: string): string {
     return ''
   }
 }
+
 export default createStore<State>({
   state: {
     token: localStorage.getItem('token') || '',
-    darkMode: localStorage.getItem('darkMode') !== 'false',
     favorites: JSON.parse(localStorage.getItem('favorites') || '[]'),
   },
   getters: {
     logado: (state) => !!state.token,
     isAdmin: (state) => parseRole(state.token) === 'Admin',
-    darkMode: (state) => state.darkMode,
     favorites: (state) => state.favorites,
     isFavorite: (state) => (id: number) => state.favorites.includes(id),
   },
@@ -36,10 +35,6 @@ export default createStore<State>({
       state.favorites = []
       localStorage.removeItem('token')
       localStorage.removeItem('favorites')
-    },
-    toggleDarkMode(state) {
-      state.darkMode = !state.darkMode
-      localStorage.setItem('darkMode', String(state.darkMode))
     },
     setFavorites(state, ids: number[]) {
       state.favorites = ids

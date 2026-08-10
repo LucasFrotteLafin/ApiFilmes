@@ -8,36 +8,116 @@ pnpm-debug.log*
 lerna-debug.log*
 
 # Dependências
-node_modules
+node_modules/
+.pnp
+.pnp.js
+yarn.lock
+package-lock.json
 
 # Build
-dist
-dist-ssr
-coverage
+dist/
+dist-ssr/
+*.tsbuildinfo
+
+# Coverage
+coverage/
+.nyc_output
 
 # Ambiente
-*.local
 .env
 .env.*
-!.env.example
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.staging.local
 
 # Sistema
 .DS_Store
 Thumbs.db
+desktop.ini
 
-# Editor
-.vscode/*
-!.vscode/extensions.json
-.idea
+# Editor/IDE
+.vscode/
+.idea/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+*.sublime-*
+.project
+.classpath
+*.launch
+.c9/
 
-# TypeScript
-*.tsbuildinfo
+# Sistema operacional
+*.swp
+*.swo
+*~
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Cache
+.cache/
+.parcel-cache/
 
 # Testes
 /cypress/videos/
 /cypress/screenshots/
+/jest/
+/vitest/
+/.vitest/
+
+# TypeScript
+*.tsbuildinfo
+
+# Dotnet (Backend)
+**/bin/
+**/obj/
+**/.vs/
+**/launchSettings.json.user
+
+# Banco de dados
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs do Entity Framework
+**/efpt.config.json
+
+# Arquivos de usuário do projeto
+**/*.csproj.user
+**/*.user
+**/*.userprefs
+
+# Configurações do Visual Studio
+.vs/
+
+# Arquivos temporários
+tmp/
+temp/
+
+# Backend específico
+**/appsettings.Development.json
+**/appsettings.Production.json
+**/appsettings.Staging.json
+
+# Migrações (exceto as principais)
+**/Migrations/*.Designer.cs
+**/Migrations/*.resx
+**/Migrations/DataContextModelSnapshot.cs
+
+# Build do .NET
+**/publish/
+
+# Configurações Rider
+.idea/
+*.sln.iml
+
+# Arquivos do Docker
+docker-compose.override.yml
