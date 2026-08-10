@@ -1,9 +1,7 @@
 <script lang="ts">
-import type { Movie } from '../data/movies'
-
 export default {
   props: {
-    movie: { type: Object as () => Movie, required: true },
+    movie: { type: Object as () => { id: number; title: string; posterUrl: string; overview: string }, required: true },
   },
 }
 </script>
@@ -11,9 +9,9 @@ export default {
 <template>
   <div class="movie-card">
     <div class="movie-card__poster-wrap">
-      <img :src="movie.poster" :alt="movie.title" class="movie-card__poster" />
+      <img :src="movie.posterUrl" :alt="movie.title" class="movie-card__poster" />
       <div class="movie-card__overlay">
-        <p class="movie-card__description">{{ movie.description }}</p>
+        <p class="movie-card__description">{{ movie.overview }}</p>
       </div>
     </div>
     <div class="movie-card__info">

@@ -11,6 +11,7 @@ namespace Movies.API.Controllers;
 public class MovieController : ControllerBase
 {
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public IActionResult Create(MovieCreateRequest request)
     {
         var movieService = new Services.MovieService();
@@ -31,6 +32,7 @@ public class MovieController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
+    [Authorize(Roles = "Admin")]
     public IActionResult Update(int id, MovieUpdateRequest request)
     {
         var movieService = new Services.MovieService();

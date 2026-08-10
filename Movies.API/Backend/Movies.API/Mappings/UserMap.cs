@@ -28,5 +28,12 @@ public class UserMap : IEntityTypeConfiguration<User>
               .HasColumnName("Password")
               .HasMaxLength(100);
 
+        builder.Property(x => x.Role)
+              .IsRequired()
+              .HasColumnType("VARCHAR")
+              .HasColumnName("Role")
+              .HasMaxLength(20)
+              .HasDefaultValue("User");
+
     }
 }

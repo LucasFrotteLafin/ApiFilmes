@@ -7,8 +7,10 @@ export default {
 </script>
 
 <template>
-  <div>
+  <v-app>
     <Navbar />
-    <router-view />
-  </div>
+    <v-main>
+      <router-view />
+    </v-main>
+  </v-app>
 </template>

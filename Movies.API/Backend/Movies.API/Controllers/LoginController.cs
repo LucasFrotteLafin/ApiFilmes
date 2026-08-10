@@ -21,8 +21,8 @@ public class LoginController : ControllerBase
         if (user is null)
             return BadRequest("Login failed!");
 
-        var token = JwtAuthManager.GenerateToken(user.Username);
+        var token = JwtAuthManager.GenerateToken(user.Username, user.Role);
 
-        return Ok($"Login successfull! Jwt: {token}");
+        return Ok(new { token });
     }
 }

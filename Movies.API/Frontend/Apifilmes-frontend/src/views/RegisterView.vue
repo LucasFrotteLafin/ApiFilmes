@@ -1,35 +1,95 @@
 <script lang="ts">
-import FormInput from '../components/FormInput.vue'
+import api from '../api/axios'
 
 export default {
   name: 'RegisterView',
-  components: { FormInput },
   data() {
     return {
-      name: '',
-      email: '',
+      username: '',
       password: '',
       confirm: '',
+      erro: '',
+      sucesso: '',
+      carregando: false,
     }
+  },
+  methods: {
+    async cadastrar() {
+      this.erro = ''
+      this.sucesso = ''
+
+      if (this.password !== this.confirm) {
+        this.erro = 'As senhas não coincidem.'
+        return
+      }
+
+      this.carregando = true
+      try {
+        await api.post('/user', {
+          username: this.username,
+          password: this.password,
+        })
+        this.sucesso = 'Conta criada! Redirecionando...'
+        setTimeout(() => this.$router.push('/login'), 1500)
+      } catch {
+        this.erro = 'Erro ao criar conta. Tente novamente.'
+      } finally {
+        this.carregando = false
+      }
+    },
   },
 }
 </script>
 
 <template>
   <div class="auth-page">
-    <div class="auth-card">
-      <h2 class="auth-card__title">Criar Conta</h2>
-      <form class="auth-card__form" @submit.prevent>
-        <FormInput v-model="name" label="Nome" placeholder="Seu nome" />
-        <FormInput v-model="email" label="E-mail" type="email" placeholder="seu@email.com" />
-        <FormInput v-model="password" label="Senha" type="password" placeholder="••••••••" />
-        <FormInput v-model="confirm" label="Confirmar Senha" type="password" placeholder="••••••••" />
-        <button type="submit" class="auth-card__btn">Cadastrar</button>
-      </form>
-      <p class="auth-card__footer">
-        Já tem conta? <router-link to="/login">Entrar</router-link>
-      </p>
-    </div>
+    <v-card class="auth-card" color="surface" rounded="lg">
+      <v-card-title class="auth-card__title">Criar Conta</v-card-title>
+      <v-card-text class="auth-card__body">
+        <v-form @submit.prevent="cadastrar">
+          <v-text-field
+            v-model="username"
+            placeholder="Seu usuário"
+            variant="underlined"
+            color="primary"
+            class="mb-3"
+          />
+          <v-text-field
+            v-model="password"
+            type="password"
+            placeholder="••••••••"
+            variant="underlined"
+            color="primary"
+            class="mb-3"
+          />
+          <v-text-field
+            v-model="confirm"
+            type="password"
+            placeholder="••••••••"
+            variant="underlined"
+            color="primary"
+            class="mb-1"
+          />
+          <p class="auth-regras">As senhas devem ser iguais.</p>
+          <p v-if="erro" class="auth-erro">{{ erro }}</p>
+          <p v-if="sucesso" class="auth-sucesso">{{ sucesso }}</p>
+          <v-btn
+            type="submit"
+            color="primary"
+            block
+            size="large"
+            :loading="carregando"
+            class="mt-3"
+          >
+            Cadastrar
+          </v-btn>
+        </v-form>
+      </v-card-text>
+      <v-card-text class="text-center auth-footer">
+        Já tem conta?
+        <router-link to="/login" class="auth-link">Entrar</router-link>
+      </v-card-text>
+    </v-card>
   </div>
 </template>
 
@@ -43,54 +103,57 @@ export default {
 }
 
 .auth-card {
-  background: #1a1a1a;
-  padding: 40px;
-  border-radius: 12px;
   width: 100%;
   max-width: 400px;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+  padding: 16px 32px;
+}
+
+.auth-card :deep(.v-card-text) {
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+.auth-card :deep(.v-field__input) {
+  padding-left: 16px;
+}
+
+.auth-card :deep(.v-label) {
+  margin-left: 16px;
 }
 
 .auth-card__title {
-  margin: 0;
   font-size: 1.75rem;
-  color: #fff;
+  font-weight: 700;
   text-align: center;
+  padding-top: 16px;
 }
 
-.auth-card__form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+.auth-regras {
+  color: #888;
+  font-size: 0.8rem;
+  margin-bottom: 8px;
 }
 
-.auth-card__btn {
-  margin-top: 8px;
-  padding: 12px;
-  background: #e50914;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.auth-card__btn:hover {
-  background: #c40812;
-}
-
-.auth-card__footer {
+.auth-erro {
+  color: #e50914;
+  font-size: 0.875rem;
   text-align: center;
+  margin-bottom: 8px;
+}
+
+.auth-sucesso {
+  color: #4caf50;
+  font-size: 0.875rem;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.auth-footer {
   color: #aaa;
   font-size: 0.875rem;
-  margin: 0;
 }
 
-.auth-card__footer a {
+.auth-link {
   color: #e50914;
   text-decoration: none;
 }

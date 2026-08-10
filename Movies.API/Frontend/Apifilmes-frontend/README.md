@@ -2,6 +2,22 @@
 
 This template should help get you started developing with Vue 3 in Vite.
 
+## Admin Profile
+
+There is a secret admin profile that can create and update movie cards.
+To create it, run the following SQL directly in the `users` table:
+
+```sql
+INSERT INTO users ("Username", "Password", "Role")
+VALUES ('admin', 'JAvlGPq9JyTdtvBO6x2llnRI1+gxwIyPqCKAn3THIKk=', 'Admin');
+```
+
+- Username: `admin`
+- Password: `admin123`
+- Role: `Admin`
+
+> The password is stored as SHA256 hashed in Base64.
+
 ## Recommended IDE Setup
 
 [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).

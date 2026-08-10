@@ -8,7 +8,7 @@ namespace Movies.API.Authentication;
 
 public static class JwtAuthManager
 {
-    public static string GenerateToken(string userName)
+    public static string GenerateToken(string userName, string role)
     {
         IConfigurationRoot configuration = new ConfigurationBuilder()
             .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
@@ -26,7 +26,8 @@ public static class JwtAuthManager
 
         var claims = new List<Claim>
         {
-            new Claim(ClaimTypes.Name, userName)
+            new Claim(ClaimTypes.Name, userName),
+            new Claim(ClaimTypes.Role, role)
         };
 
         var credentials = new SigningCredentials(

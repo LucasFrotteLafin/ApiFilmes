@@ -1,5 +1,10 @@
 <script lang="ts">
-import type { Movie } from '../data/movies'
+interface Movie {
+  id: number
+  title: string
+  posterUrl: string
+  overview: string
+}
 
 export default {
   name: 'MovieCarousel',
@@ -7,7 +12,10 @@ export default {
     movies: { type: Array as () => Movie[], required: true },
   },
   data() {
-    return { current: 0 }
+    return {
+      current: 0,
+      timer: null as ReturnType<typeof setInterval> | null,
+    }
   },
   computed: {
     prev(): number {
@@ -20,6 +28,12 @@ export default {
       return this.movies[this.current]
     },
   },
+  mounted() {
+    this.timer = setInterval(() => { this.current = this.next }, 4000)
+  },
+  beforeUnmount() {
+    if (this.timer) clearInterval(this.timer)
+  },
   methods: {
     goPrev() { this.current = this.prev },
     goNext() { this.current = this.next },
@@ -29,10 +43,10 @@ export default {
 </script>
 
 <template>
-  <div class="carousel">
+  <div v-if="movies.length > 0" class="carousel">
     <div
       class="carousel__bg"
-      :style="{ backgroundImage: `url(${activeMovie.poster})` }"
+      :style="{ backgroundImage: `url(${activeMovie.posterUrl})` }"
     />
 
     <div class="carousel__content">
@@ -50,7 +64,7 @@ export default {
           }"
           @click="goTo(index)"
         >
-          <img :src="movie.poster" :alt="movie.title" class="carousel__poster" />
+          <img :src="movie.posterUrl" :alt="movie.title" class="carousel__poster" />
         </div>
       </div>
 
@@ -59,7 +73,7 @@ export default {
 
     <div class="carousel__info">
       <h3 class="carousel__title">{{ activeMovie.title }}</h3>
-      <p class="carousel__desc">{{ activeMovie.description }}</p>
+      <p class="carousel__desc">{{ activeMovie.overview }}</p>
       <div class="carousel__dots">
         <button
           v-for="(_, i) in movies"
