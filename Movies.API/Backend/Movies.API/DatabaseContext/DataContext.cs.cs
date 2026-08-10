@@ -12,14 +12,14 @@ public class DataContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        IConfigurationRoot configuration = new ConfigurationBuilder()
-            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-            .AddJsonFile("appsettings.json")
-            .Build();
+        var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL")
+            ?? new ConfigurationBuilder()
+                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                .AddJsonFile("appsettings.json")
+                .Build()
+                .GetConnectionString("DefaultConnection");
 
-        var connectionString = configuration.GetConnectionString("DefaultConnection");
         optionsBuilder.UseNpgsql(connectionString);
-
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
