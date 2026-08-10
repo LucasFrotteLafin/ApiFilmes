@@ -1,41 +1,22 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Movies.API.Authentication;
-using Movies.API.DatabaseContext;
 using System.Text;
-
 var builder = WebApplication.CreateBuilder(args);
-
-var frontendUrl = Environment.GetEnvironmentVariable("FRONTEND_URL") ?? "http://localhost:5173";
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("Frontend", policy =>
     {
-        policy.WithOrigins(frontendUrl)
+        policy.WithOrigins("http:
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
 });
-
-builder.Services.AddDbContext<DataContext>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-
-var jwtKey = Environment.GetEnvironmentVariable("JWT_KEY") ?? builder.Configuration["JwtSettings:Key"];
-var jwtIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER") ?? builder.Configuration["JwtSettings:Issuer"];
-var jwtAudience = Environment.GetEnvironmentVariable("JWT_AUDIENCE") ?? builder.Configuration["JwtSettings:Audience"];
-
-var jwtSettings = new JwtSettings
-{
-    Key = jwtKey ?? throw new InvalidOperationException("JWT Key is missing."),
-    Issuer = jwtIssuer ?? throw new InvalidOperationException("JWT Issuer is missing."),
-    Audience = jwtAudience ?? throw new InvalidOperationException("JWT Audience is missing."),
-    DurationMinutes = 60
-};
-
+var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>() 
+    ?? throw new InvalidOperationException("JwtSettings section is missing in the configuration.");
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options => 
     { 
@@ -50,11 +31,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key ?? string.Empty))
         };
     });
-
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
-
     var secutiryScheme = new OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -64,9 +43,7 @@ builder.Services.AddSwaggerGen(c =>
         In = ParameterLocation.Header,
         Description = "Enter: Bearer {your token}"
     };
-
     c.AddSecurityDefinition("Bearer", secutiryScheme);
-
     var securityRequirement = new OpenApiSecurityRequirement
     {
         {
@@ -84,24 +61,11 @@ builder.Services.AddSwaggerGen(c =>
     };
     c.AddSecurityRequirement(securityRequirement);
 });
-
-
 var app = builder.Build();
-
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<DataContext>();
-    db.Database.Migrate();
-}
-
 app.UseSwagger();
 app.UseSwaggerUI();
-
 app.UseCors("Frontend");
-
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
-
-app.Run();
+app.Run();

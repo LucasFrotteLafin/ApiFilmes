@@ -3,7 +3,6 @@ export default {
   name: 'HomeView',
 }
 </script>
-
 <template>
   <div class="home">
     <div class="home__hero">
@@ -14,7 +13,6 @@ export default {
         <router-link to="/cadastro" class="home__btn home__btn--secondary">Criar Conta</router-link>
       </div>
     </div>
-
     <div class="home__features">
       <div class="home__feature-card">
         <span class="home__feature-icon">🎬</span>
@@ -34,7 +32,6 @@ export default {
     </div>
   </div>
 </template>
-
 <style scoped>
 .home {
   min-height: calc(100vh - 60px);
@@ -46,34 +43,28 @@ export default {
   gap: 64px;
   padding: 60px 32px;
 }
-
 .home__hero {
   text-align: center;
 }
-
 .home__title {
   font-size: 3rem;
   color: #fff;
   margin: 0 0 16px;
 }
-
 .home__title span {
   color: #e50914;
 }
-
 .home__subtitle {
   font-size: 1.2rem;
   color: #aaa;
   margin: 0 0 40px;
 }
-
 .home__actions {
   display: flex;
   gap: 16px;
   justify-content: center;
   flex-wrap: wrap;
 }
-
 .home__btn {
   padding: 14px 32px;
   border-radius: 8px;
@@ -82,23 +73,18 @@ export default {
   text-decoration: none;
   transition: opacity 0.2s;
 }
-
 .home__btn:hover {
   opacity: 0.85;
 }
-
 .home__btn--primary {
   background: #e50914;
   color: #fff;
 }
-
 .home__btn--secondary {
   background: transparent;
   color: #fff;
   border: 2px solid #fff;
 }
-
-/* Cards "Como funciona" */
 .home__features {
   display: flex;
   gap: 24px;
@@ -107,7 +93,6 @@ export default {
   width: 100%;
   max-width: 900px;
 }
-
 .home__feature-card {
   background: #1a1a1a;
   border: 1px solid #2a2a2a;
@@ -119,25 +104,21 @@ export default {
   text-align: center;
   transition: border-color 0.2s, transform 0.2s;
 }
-
 .home__feature-card:hover {
   border-color: #e50914;
   transform: translateY(-4px);
 }
-
 .home__feature-icon {
   font-size: 2.5rem;
   display: block;
   margin-bottom: 16px;
 }
-
 .home__feature-title {
   font-size: 1rem;
   font-weight: 700;
   color: #fff;
   margin-bottom: 8px;
 }
-
 .home__feature-text {
   font-size: 0.875rem;
   color: #aaa;

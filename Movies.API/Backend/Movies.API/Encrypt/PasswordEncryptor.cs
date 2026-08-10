@@ -1,8 +1,6 @@
-﻿using System.Security.Cryptography;
+using System.Security.Cryptography;
 using System.Text;
-
 namespace Movies.API.Encrypt;
-
 public static class PasswordEncryptor
 {
     public static string EncryptPassword(string password)
@@ -11,7 +9,6 @@ public static class PasswordEncryptor
         {
             throw new ArgumentNullException(nameof(password), "Password cannot be null or empty.");
         }
-
         using(SHA256 sha256 = SHA256.Create())
         {
             byte[] bytes = Encoding.UTF8.GetBytes(password);
@@ -25,8 +22,7 @@ public static class PasswordEncryptor
         {
             return false;
         }
-
         string encryptedInput = EncryptPassword(password);
         return encryptedInput == hashedPassword;
     }
-}
+}

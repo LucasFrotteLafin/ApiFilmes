@@ -1,11 +1,5 @@
 <script lang="ts">
-interface Movie {
-  id: number
-  title: string
-  posterUrl: string
-  overview: string
-}
-
+import type { Movie } from '../types/Movie'
 export default {
   name: 'MovieCarousel',
   props: {
@@ -41,17 +35,14 @@ export default {
   },
 }
 </script>
-
 <template>
   <div v-if="movies.length > 0" class="carousel">
     <div
       class="carousel__bg"
       :style="{ backgroundImage: `url(${activeMovie.posterUrl})` }"
     />
-
     <div class="carousel__content">
       <button class="carousel__arrow" @click="goPrev">&#8249;</button>
-
       <div class="carousel__track">
         <div
           v-for="(movie, index) in movies"
@@ -67,10 +58,8 @@ export default {
           <img :src="movie.posterUrl" :alt="movie.title" class="carousel__poster" />
         </div>
       </div>
-
       <button class="carousel__arrow" @click="goNext">&#8250;</button>
     </div>
-
     <div class="carousel__info">
       <h3 class="carousel__title">{{ activeMovie.title }}</h3>
       <p class="carousel__desc">{{ activeMovie.overview }}</p>
@@ -86,7 +75,6 @@ export default {
     </div>
   </div>
 </template>
-
 <style scoped>
 .carousel {
   position: relative;
@@ -98,7 +86,6 @@ export default {
   align-items: center;
   gap: 24px;
 }
-
 .carousel__bg {
   position: absolute;
   inset: 0;
@@ -108,7 +95,6 @@ export default {
   transform: scale(1.1);
   transition: background-image 0.5s ease;
 }
-
 .carousel__content {
   position: relative;
   display: flex;
@@ -117,7 +103,6 @@ export default {
   width: 100%;
   justify-content: center;
 }
-
 .carousel__track {
   display: flex;
   align-items: center;
@@ -126,7 +111,6 @@ export default {
   position: relative;
   width: 640px;
 }
-
 .carousel__item {
   position: absolute;
   transition: all 0.45s cubic-bezier(0.4, 0, 0.2, 1);
@@ -135,37 +119,31 @@ export default {
   pointer-events: none;
   cursor: pointer;
 }
-
 .carousel__item--prev {
   opacity: 0.45;
   transform: scale(0.78) translateX(-180px);
   pointer-events: auto;
 }
-
 .carousel__item--next {
   opacity: 0.45;
   transform: scale(0.78) translateX(180px);
   pointer-events: auto;
 }
-
 .carousel__item--active {
   opacity: 1;
   transform: scale(1) translateX(0);
   pointer-events: auto;
   z-index: 2;
 }
-
 .carousel__poster {
   height: 320px;
   border-radius: 12px;
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.8);
   display: block;
 }
-
 .carousel__item--active .carousel__poster {
   box-shadow: 0 20px 60px rgba(229, 9, 20, 0.4);
 }
-
 .carousel__arrow {
   position: relative;
   z-index: 3;
@@ -184,12 +162,10 @@ export default {
   transition: background 0.2s;
   flex-shrink: 0;
 }
-
 .carousel__arrow:hover {
   background: #e50914;
   border-color: #e50914;
 }
-
 .carousel__info {
   position: relative;
   text-align: center;
@@ -200,27 +176,23 @@ export default {
   align-items: center;
   gap: 10px;
 }
-
 .carousel__title {
   font-size: 1.5rem;
   font-weight: 700;
   color: #fff;
   margin: 0;
 }
-
 .carousel__desc {
   font-size: 0.875rem;
   color: #bbb;
   line-height: 1.6;
   margin: 0;
 }
-
 .carousel__dots {
   display: flex;
   gap: 8px;
   margin-top: 4px;
 }
-
 .carousel__dot {
   width: 8px;
   height: 8px;
@@ -231,7 +203,6 @@ export default {
   transition: background 0.2s, transform 0.2s;
   padding: 0;
 }
-
 .carousel__dot--active {
   background: #e50914;
   transform: scale(1.3);

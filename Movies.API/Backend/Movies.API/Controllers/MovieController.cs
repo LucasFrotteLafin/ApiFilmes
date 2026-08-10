@@ -1,10 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Movies.API.Requests.Movies;
-
 namespace Movies.API.Controllers;
-
-
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
@@ -20,7 +17,6 @@ public class MovieController : ControllerBase
             return BadRequest("Failed to create movie.");
         return Ok("Movie created successfully.");
     }
-
     [HttpGet("{id:int}")]
     public IActionResult GetById(int id)
     {
@@ -30,7 +26,6 @@ public class MovieController : ControllerBase
             return NotFound("Movie not found.");
         return Ok(movie);
     }
-
     [HttpPut("{id:int}")]
     [Authorize(Roles = "Admin")]
     public IActionResult Update(int id, MovieUpdateRequest request)
@@ -41,8 +36,8 @@ public class MovieController : ControllerBase
             return BadRequest("Failed to update movie.");
         return Ok("Movie updated successfully.");
     }
-
     [HttpDelete("{id:int}")]
+    [Authorize(Roles = "Admin")]
     public IActionResult Delete(int id)
     {
         var movieService = new Services.MovieService();
@@ -51,13 +46,11 @@ public class MovieController : ControllerBase
             return BadRequest("Failed to delete movie.");
         return Ok("Movie deleted successfully.");
     }
-
     [HttpGet("get-all")]
-
     public IActionResult Get()
     {
         var movieService = new Services.MovieService();
         var movies = movieService.GetAll();
         return Ok(movies);
     }  
-}
+}

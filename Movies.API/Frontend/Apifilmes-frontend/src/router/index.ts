@@ -4,8 +4,8 @@ import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import MoviesView from '../views/MoviesView.vue'
 import AdminView from '../views/AdminView.vue'
+import FavoritesView from '../views/FavoritesView.vue'
 import store from '../store'
-
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -13,6 +13,7 @@ const router = createRouter({
     { path: '/login', component: LoginView },
     { path: '/cadastro', component: RegisterView },
     { path: '/filmes', component: MoviesView },
+    { path: '/favoritos', component: FavoritesView },
     {
       path: '/admin',
       component: AdminView,
@@ -22,5 +23,4 @@ const router = createRouter({
     },
   ],
 })
-
 export default router

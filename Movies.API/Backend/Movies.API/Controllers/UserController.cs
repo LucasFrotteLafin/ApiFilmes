@@ -1,10 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Movies.API.Requests.Movies;
 using Movies.API.Requests.Users;
-
 namespace Movies.API.Controllers;
-
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
@@ -20,7 +18,6 @@ public class UserController : ControllerBase
             return BadRequest("Failed to create user.");
         return Ok("User created successfully.");
     }
-
     [HttpGet("{id}")]
     public IActionResult GetById(int id)
     {
@@ -30,7 +27,6 @@ public class UserController : ControllerBase
             return NotFound("User not found.");
         return Ok(user);
     }
-
     [HttpPut("{id}")]
     public IActionResult Update(int id, UserUpdateRequest request)
     {
@@ -40,7 +36,6 @@ public class UserController : ControllerBase
             return BadRequest("Failed to update user.");
         return Ok("User  updated successfully.");
     }
-
     [HttpDelete("{id}")]
     public IActionResult Delete(int id)
     {
@@ -50,7 +45,6 @@ public class UserController : ControllerBase
             return BadRequest("Failed to delete user.");
         return Ok("User deleted successfully.");
     }
-
     [HttpGet("get-all")]
     public IActionResult Get()
     {
@@ -58,4 +52,4 @@ public class UserController : ControllerBase
         var user = userService.GetAll();
         return Ok(user);
     }
-}
+}

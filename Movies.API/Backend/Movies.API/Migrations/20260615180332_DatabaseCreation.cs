@@ -1,14 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-
 #nullable disable
-
 namespace Movies.API.Migrations
 {
-    /// <inheritdoc />
     public partial class DatabaseCreation : Migration
     {
-        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -25,7 +21,6 @@ namespace Movies.API.Migrations
                 {
                     table.PrimaryKey("PK_Movies", x => x.Id);
                 });
-
             migrationBuilder.CreateTable(
                 name: "users",
                 columns: table => new
@@ -40,15 +35,12 @@ namespace Movies.API.Migrations
                     table.PrimaryKey("PK_users", x => x.Id);
                 });
         }
-
-        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "Movies");
-
             migrationBuilder.DropTable(
                 name: "users");
         }
     }
-}
+}

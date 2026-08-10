@@ -8,8 +8,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Movies.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20260615180332_DatabaseCreation")]
-    partial class DatabaseCreation
+    [Migration("20260810162448_AddGenreAndRating")]
+    partial class AddGenreAndRating
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -25,6 +25,13 @@ namespace Movies.API.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("Id");
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    b.Property<string>("Genre")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(50)
+                        .HasColumnType("VARCHAR")
+                        .HasDefaultValue("")
+                        .HasColumnName("Genre");
                     b.Property<string>("Overview")
                         .IsRequired()
                         .HasColumnType("TEXT")
@@ -34,6 +41,11 @@ namespace Movies.API.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("VARCHAR")
                         .HasColumnName("PosterUrl");
+                    b.Property<double>("Rating")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("double precision")
+                        .HasDefaultValue(0.0)
+                        .HasColumnName("Rating");
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -54,6 +66,13 @@ namespace Movies.API.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("VARCHAR")
                         .HasColumnName("Password");
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(20)
+                        .HasColumnType("VARCHAR")
+                        .HasDefaultValue("User")
+                        .HasColumnName("Role");
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasMaxLength(50)

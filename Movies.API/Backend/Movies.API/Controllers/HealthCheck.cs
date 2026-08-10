@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.AspNetCore.Mvc;
 namespace Movies.API.Controllers;
-
 [ApiController]
 [Route("api/[controller]")]
     public class HeatlCheckController : ControllerBase
@@ -11,4 +9,4 @@ namespace Movies.API.Controllers;
         {
             return Ok("The API is working");
         }
-    }
+    }

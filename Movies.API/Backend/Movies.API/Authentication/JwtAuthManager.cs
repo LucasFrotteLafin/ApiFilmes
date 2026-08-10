@@ -1,40 +1,32 @@
-﻿
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
-
 namespace Movies.API.Authentication;
-
 public static class JwtAuthManager
 {
-    public static string GenerateToken(string userName, string role)
+    public static string GenerateToken(string userName, string role, int userId)
     {
         IConfigurationRoot configuration = new ConfigurationBuilder()
             .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
             .AddJsonFile("appsettings.json")
             .Build();
-
         var jwtSection = configuration.GetSection("JwtSettings");
         var jwtSettings = jwtSection.Get<JwtSettings>()
             ?? throw new InvalidOperationException("JwtSettings section is not configured. Please add JwtSettings in appsettings.json.");
-
         if (string.IsNullOrEmpty(jwtSettings.Key))
             throw new InvalidOperationException("JwtSettings.Key is not configured.");
-
         var key = Encoding.ASCII.GetBytes(jwtSettings.Key);
-
         var claims = new List<Claim>
         {
+            new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
             new Claim(ClaimTypes.Name, userName),
             new Claim(ClaimTypes.Role, role)
         };
-
         var credentials = new SigningCredentials(
             new SymmetricSecurityKey(key),
             SecurityAlgorithms.HmacSha256
          );
-
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),
@@ -43,9 +35,8 @@ public static class JwtAuthManager
             Audience = jwtSettings.Audience,
             SigningCredentials = credentials
         };
-
         var tokenHandler = new JwtSecurityTokenHandler();
         var token = tokenHandler.CreateToken(tokenDescriptor);
         return tokenHandler.WriteToken(token);
     }
-}
+}

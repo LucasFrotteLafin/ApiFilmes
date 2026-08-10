@@ -1,19 +1,11 @@
 <script lang="ts">
 import api from '../api/axios'
-
-interface Movie {
-  id: number
-  title: string
-  posterUrl: string
-  overview: string
-}
-
+import type { Movie } from '../types/Movie'
 interface Form {
   title: string
   posterUrl: string
   overview: string
 }
-
 export default {
   name: 'AdminView',
   data() {
@@ -72,14 +64,12 @@ export default {
   },
 }
 </script>
-
 <template>
   <div class="admin-page">
     <div class="admin-header">
       <h1 class="admin-title">Painel Admin</h1>
       <v-btn color="primary" @click="abrirCriar">+ Novo Filme</v-btn>
     </div>
-
     <div class="admin-grid">
       <div v-for="movie in movies" :key="movie.id" class="admin-card">
         <img :src="movie.posterUrl" :alt="movie.title" class="admin-card__poster" />
@@ -89,7 +79,6 @@ export default {
         </div>
       </div>
     </div>
-
     <v-dialog v-model="dialog" max-width="500">
       <v-card color="#1a1a1a">
         <v-card-title class="dialog-title">{{ editingId ? 'Editar Filme' : 'Novo Filme' }}</v-card-title>
@@ -110,21 +99,18 @@ export default {
     </v-dialog>
   </div>
 </template>
-
 <style scoped>
 .admin-page {
   min-height: calc(100vh - 60px);
   background: #141414;
   padding: 40px 32px;
 }
-
 .admin-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 32px;
 }
-
 .admin-title {
   color: #fff;
   font-size: 1.6rem;
@@ -132,33 +118,28 @@ export default {
   border-left: 4px solid #e50914;
   padding-left: 12px;
 }
-
 .admin-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 20px;
 }
-
 .admin-card {
   background: #1a1a1a;
   border-radius: 8px;
   overflow: hidden;
 }
-
 .admin-card__poster {
   width: 100%;
   aspect-ratio: 2/3;
   object-fit: cover;
   display: block;
 }
-
 .admin-card__info {
   padding: 8px 10px;
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
-
 .admin-card__title {
   color: #fff;
   font-size: 0.85rem;
@@ -168,27 +149,23 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
 .dialog-title {
   color: #fff;
   font-size: 1.2rem;
   font-weight: 700;
   padding-top: 20px;
 }
-
 .dialog-actions {
   display: flex;
   justify-content: flex-end;
   gap: 8px;
   margin-top: 8px;
 }
-
 .msg-erro {
   color: #e50914;
   font-size: 0.875rem;
   margin-bottom: 8px;
 }
-
 .msg-sucesso {
   color: #4caf50;
   font-size: 0.875rem;
