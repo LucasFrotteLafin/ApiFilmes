@@ -2,8 +2,6 @@
 
 Aplicacao full-stack para catalogo e gerenciamento de filmes. O projeto combina uma API REST em ASP.NET Core 8 com uma SPA em Vue 3, permitindo consultar filmes, pesquisar por titulo, filtrar por genero, visualizar posters e trailers, criar uma conta, autenticar com JWT e manter uma lista de favoritos.
 
-> Status: projeto em desenvolvimento. Este documento descreve o comportamento implementado atualmente no codigo.
-
 ## Sumario
 
 - [Visao geral](#visao-geral)
