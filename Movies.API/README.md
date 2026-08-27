@@ -1,4 +1,4 @@
-# ApiFilmes
+# CineVerse
 
 Aplicacao full-stack para catalogo e gerenciamento de filmes. O projeto combina uma API REST em ASP.NET Core 8 com uma SPA em Vue 3, permitindo consultar filmes, pesquisar por titulo, filtrar por genero, visualizar posters e trailers, criar uma conta, autenticar com JWT e manter uma lista de favoritos.
 
@@ -26,7 +26,7 @@ Aplicacao full-stack para catalogo e gerenciamento de filmes. O projeto combina 
 
 ## Visao geral
 
-O ApiFilmes possui dois aplicativos independentes dentro do mesmo repositorio:
+O CineVerse possui dois aplicativos independentes dentro do mesmo repositorio:
 
 - **Backend**: API HTTP responsavel por autenticacao, usuarios, filmes e favoritos.
 - **Frontend**: interface web responsiva que consome a API e oferece as telas de navegacao, login, cadastro, catalogo, favoritos e administracao.
@@ -151,8 +151,8 @@ Depois ajuste a connection string em `Backend/Movies.API/appsettings.json`:
   },
   "JwtSettings": {
     "Key": "uma-chave-secreta-longa-e-aleatoria-com-pelo-menos-32-caracteres",
-    "Issuer": "MoviesAPI",
-    "Audience": "MoviesAPIClient",
+    "Issuer": "CineVerse",
+    "Audience": "CineVerseClient",
     "DurationMinutes": 60
   }
 }

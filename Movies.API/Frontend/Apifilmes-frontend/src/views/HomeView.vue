@@ -6,7 +6,7 @@ export default {
 <template>
   <div class="home">
     <div class="home__hero">
-      <h1 class="home__title">Bem-vindo ao <span>ApiFilmes</span></h1>
+      <h1 class="home__title">Bem-vindo ao <span>CineVerse</span></h1>
       <p class="home__subtitle">Descubra, explore e acompanhe seus filmes favoritos.</p>
       <div class="home__actions">
         <router-link to="/filmes" class="home__btn home__btn--primary">Ver Filmes</router-link>

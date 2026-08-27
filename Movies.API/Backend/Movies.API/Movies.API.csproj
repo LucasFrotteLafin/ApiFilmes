@@ -2,6 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>CineVerse.API</AssemblyName>
+    <Product>CineVerse</Product>
+    <Description>API do catalogo de filmes CineVerse</Description>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>

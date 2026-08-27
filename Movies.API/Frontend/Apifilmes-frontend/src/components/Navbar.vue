@@ -37,7 +37,7 @@ export default {
 </script>
 <template>
   <nav class="navbar" :class="{ 'navbar--scrolled': scrolled }">
-    <router-link to="/" class="navbar__brand">ApiFilmes</router-link>
+    <router-link to="/" class="navbar__brand">CineVerse</router-link>
     <ul class="navbar__list">
       <li><router-link to="/" class="navbar__link">Início</router-link></li>
       <li><router-link to="/filmes" class="navbar__link">Filmes</router-link></li>
